@@ -1,6 +1,9 @@
 import Vue from "vue";
-import Notify from "vue-notify-me";
-import { Component, Prop } from "vue-property-decorator";
+
+// @ts-ignore: Library without TS support
+import Notify from "../../modules/vue-notify-me";
+
+import { Component } from "vue-property-decorator";
 import { Events } from "../../eventbus";
 
 import template from "./notification.vue";
