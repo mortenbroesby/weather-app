@@ -1,5 +1,5 @@
-import { Module } from "vuex";
 import { $store } from ".";
+import { Module } from "vuex";
 
 export interface ModuleDispatcher<S, R, A> extends Module<S, R> {
   dispatch(action: keyof A, payload?: any): Promise<any>;

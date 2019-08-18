@@ -16,6 +16,16 @@ import { geoLocationService } from "../../services/geolocation.service";
   mixins: [template],
 })
 export default class Home extends mixins(StoreMixin) {
+  /*************************************************/
+  /* COMPUTED'S */
+  /*************************************************/
+  get currentWeather() {
+    return this.rootState.currentWeather;
+  }
+
+  /*************************************************/
+  /* LIFE CYCLE */
+  /*************************************************/
   mounted() {
     geoLocationService.requestLocation().then((location: Location) => {
       getWeather(location).then((result) => {
