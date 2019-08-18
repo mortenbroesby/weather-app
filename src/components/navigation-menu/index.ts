@@ -1,6 +1,7 @@
 import Logger from "js-logger";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { Events } from "../../eventbus";
 
 import template from "./navigation-menu.vue";
 import "./navigation-menu.scss";
@@ -17,10 +18,22 @@ export default class NavigationMenu extends Vue {
   refreshWeather() {
     $store.dispatch("getCurrentWeather").then((result) => {
       Logger.info("refreshWeather success: ", result);
-      // @TODO: Show notification success.
+      Events.$emit("notify-me", {
+        status: "notify-success",
+        data: {
+          title: "Success",
+          text: "Content refreshed successfully"
+        }
+      });
     }).catch((error) => {
       Logger.warn("refreshWeather error: ", error);
-      // @TODO: Show notification error.
+      Events.$emit("notify-me", {
+        status: "notify-error",
+        data: {
+          title: "Error",
+          text: error
+        }
+      });
     });
   }
 }

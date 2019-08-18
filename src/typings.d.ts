@@ -16,3 +16,8 @@ declare module "geolocator" {
   const value: any;
   export default value;
 }
+
+declare module "vue-notify-me" {
+  const value: any;
+  export default value;
+}
