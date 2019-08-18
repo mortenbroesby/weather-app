@@ -1,9 +1,81 @@
 @import "../../styles/global.scss";
 
 .weather-widget {
-  display: flex;
   width: 100%;
   height: 100%;
-
   @include z-index(root);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-widget__metadata {
+  text-align: center;
+}
+
+.weather-widget__title {
+  margin-bottom: 1em;
+  font-size: 2em;
+}
+
+.weather-widget__subtitle {
+  font-size: 1em;
+
+  &--bold {
+    margin-bottom: 1em;
+    font-size: 1.2em;
+    font-weight: 800;
+  }
+}
+
+.weather-widget__icon {
+  margin: 0.5em;
+  font-size: 4em;
+
+  animation: swing 6s infinite ease-in-out;
+  transition: all 220ms;
+
+  cursor: pointer;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &:active {
+    animation-play-state: paused
+  }
+}
+
+.weather-widget__icon__small {
+  font-size: 1.4em;
+
+  &.is-left {
+    margin-right: 0.6em;
+  }
+
+  &--celsius {
+    margin-top: 2px;
+    margin-left: 6px;
+    font-size: 1.6em;
+  }
+}
+
+.weather-widget__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em 0;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(-20deg);
+  }
 }

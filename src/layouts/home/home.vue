@@ -1,6 +1,6 @@
 <template>
   <div id="home" class="home">
-    <navigation-menu></navigation-menu>
-    <weather-widget></weather-widget>
+    <navigation-menu @refreshWeather="refreshWeather"></navigation-menu>
+    <weather-widget @refreshWeather="refreshWeather"></weather-widget>
   </div>
 </template>

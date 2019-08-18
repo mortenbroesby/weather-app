@@ -1,9 +1,19 @@
 {
-  "errors": {
-    "refreshLimitResched": "Refresh limit reached"
-  },
-
   "main-menu": {
     "refresh": "REFRESH"
+  },
+
+  "weatherWidget": {
+    "mainTitle": "Hi there!",
+    "firstSubtitle": "How's the weather?",
+    "secondSubtitle": "Currently: {value}",
+    "precipitationTitle": "Precipitation: {value} mm",
+    "windspeedTitle": "Wind speed: {value} m/s",
+    "temperatureTitle": "Temperature: {value}",
+    "humidityTitle": " Humidity: {value}%"
+  },
+
+  "errors": {
+    "refreshLimitResched": "Within refresh limit"
   }
 }
