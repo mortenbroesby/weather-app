@@ -13,7 +13,7 @@ Create one chart to show all of the following:
 * Temperature.
 * Humidity.
 
-Afterwards I want to style it with the correct weather icons.
+Style it with correct weather icons.
 
 ---
 
