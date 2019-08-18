@@ -10,3 +10,28 @@ export interface Coordinates {
 export interface Location {
   coords: Coordinates;
 }
+
+export interface LocationError {
+  error: any;
+  fallbackLocation: Location;
+}
+
+export interface Weather {
+  temperature: Temperature;
+  windSpeed: number;
+  humidity: number;
+  weatherType: WeatherType;
+}
+
+export interface WeatherType {
+  id: number;
+  type: string;
+  description: string;
+  icon: string;
+}
+
+export interface Temperature {
+  current: number;
+  minimum: number;
+  maximum: number;
+}

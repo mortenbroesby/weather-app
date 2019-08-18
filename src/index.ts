@@ -24,7 +24,6 @@ Logger.setLevel(logLevel);
 // Configure Vue
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
-Vue.config.performance = true;
 
 // Import components
 import App from "./App.vue";
@@ -81,12 +80,8 @@ function initialiseApplication() {
       this.setUserLocale();
 
       // Simulate load to API.
-      $store.dispatch("setSpinner", true);
       $store.dispatch("initialise").then(() => {
         Logger.info("Application initialised.");
-        setTimeout(() => {
-          $store.dispatch("setSpinner", false);
-        }, 1000);
       });
     }
 

@@ -1,8 +1,7 @@
 import Logger from "js-logger";
 import { Location } from "../interfaces";
-import { hasDeep } from "../utilities";
 
-export class GeoLocationModel {
+export class GeolocationModel {
     // Default to Amsterdam for now.
   location: Location = {
     coords: {

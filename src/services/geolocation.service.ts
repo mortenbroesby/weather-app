@@ -3,20 +3,20 @@ import geolocator from "geolocator";
 import { setItem, getItem } from "../utilities";
 import { localisationService } from "./localisation.service";
 
-import { Location } from "../interfaces";
-import { GeoLocationModel } from "../models/location.model";
+import { Location, LocationError } from "../interfaces";
+import { GeolocationModel } from "../models/geolocation.model";
 
-class GeoLocationService {
+class GeolocationService {
   geolocator = {};
 
-  location: Location = new GeoLocationModel().location;
+  location: GeolocationModel = new GeolocationModel();
 
-  requestLocation(): Promise<Location> {
+  requestLocation(): Promise<GeolocationModel> {
     this.geolocator = geolocator.config({
       language: localisationService.getActiveLanguage(),
     });
 
-    const storedLocation: Location = getItem("storedUserLocation");
+    const storedLocation: GeolocationModel = getItem("storedUserLocation");
 
     const options = {
       enableHighAccuracy: true,
@@ -34,10 +34,13 @@ class GeoLocationService {
 
       geolocator.locate(options, (error: any, location: any) => {
         if (error) {
-          return reject(this.location);
+          return reject({
+            error,
+            fallbackLocation: this.location
+          });
         }
 
-        const userLocation = new GeoLocationModel(location).location;
+        const userLocation = new GeolocationModel(location);
         setItem("storedUserLocation", userLocation);
 
         return resolve(userLocation);
@@ -46,4 +49,4 @@ class GeoLocationService {
   }
 }
 
-export const geoLocationService = new GeoLocationService();
+export const geolocationService = new GeolocationService();
