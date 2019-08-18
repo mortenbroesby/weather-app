@@ -16,19 +16,26 @@ export default class NavigationMenu extends Vue {
   /* METHODS */
   /*************************************************/
   refreshWeather() {
+    $store.dispatch("setSpinner", true);
     $store.dispatch("getCurrentWeather").then((result) => {
-      Logger.info("refreshWeather success: ", result);
+      $store.dispatch("setSpinner", false);
+
+      Logger.info("Refresh Weather success: ", result);
+
       Events.$emit("notify-me", {
-        status: "notify-success",
+        status: "is-success",
         data: {
           title: "Success",
           text: "Content refreshed successfully"
         }
       });
     }).catch((error) => {
-      Logger.warn("refreshWeather error: ", error);
+      $store.dispatch("setSpinner", false);
+
+      Logger.warn("Refresh Weather error: ", error);
+
       Events.$emit("notify-me", {
-        status: "notify-error",
+        status: "is-warning",
         data: {
           title: "Error",
           text: error

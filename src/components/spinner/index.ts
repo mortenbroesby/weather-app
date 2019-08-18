@@ -6,6 +6,5 @@ import "./spinner.scss";
 
 @Component({
   mixins: [template],
-  components: {}
 })
 export default class Spinner extends Vue {}

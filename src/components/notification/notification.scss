@@ -1,0 +1,49 @@
+@import "../../styles/global.scss";
+
+.notification {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  @include z-index(notification);
+}
+
+.notification__item {
+  pointer-events: auto;
+  width: 100%;
+  word-break: break-all;
+  text-align: left;
+  padding: 1em;
+  border-radius: 3px;
+
+  &.is-success {
+    background-color: #23d160;
+    color: #fff;
+  }
+
+  &.is-warning {
+    background-color: #ffdd57;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  &.is-error {
+    background-color: #ff3860;
+    color: #fff;
+  }
+}
+
+.notification__item__metadata {
+  width: 100%;
+  height: 100%;
+}
+
+.notification__item__title {
+  font-size: 0.9em;
+  font-weight: 800;
+  margin-bottom: 0.8em;
+}
+
+.notification__item__text {
+  font-size: 0.85em;
+  font-weight: 200;
+}

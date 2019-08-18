@@ -3,10 +3,8 @@
 /*************************************************/
 import Logger from "js-logger";
 import Vue from "vue";
-import Notify from "vue-notify-me";
 import { Component } from "vue-property-decorator";
 import config from "./config";
-import { Events } from "./eventbus";
 
 import { router } from "./router";
 import { $store, RootState } from "./store";
@@ -31,6 +29,7 @@ Vue.config.devtools = true;
 import App from "./App.vue";
 
 import Spinner from "./components/spinner";
+import Notification from "./components/notification";
 import Home from "./layouts/home";
 
 // Import styles
@@ -49,16 +48,11 @@ function initialiseApplication() {
     router: router,
     components: {
       Spinner,
+      Notification,
       Home,
-      Notify,
     }
   })
   class Application extends Vue {
-    /*************************************************/
-    /* PROPERTIES */
-    /*************************************************/
-    eventbus = Events;
-
     /*************************************************/
     /* LIFE CYCLE */
     /*************************************************/
