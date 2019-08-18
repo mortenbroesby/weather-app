@@ -4,12 +4,14 @@ This is a weather app. The intent is to make use of the OpenWeather API https://
 
 ## Goal:
 
-Search for a city or request the users location in the browser, and make a page that shows the daily and hourly chart of the weather forecast for this location.
+Search for a city or request the users location in the browser.
+Make a page that shows the daily and hourly chart of the weather forecast for this location.
 
 Create one chart to show all of the following:
-- Rain amount.
-- Temperature.
-- Humidity.
+
+* Rain amount.
+* Temperature.
+* Humidity.
 
 Afterwards I want to style it with the correct weather icons.
 
