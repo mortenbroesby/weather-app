@@ -143,14 +143,13 @@ const actions = {
       const shouldBlockRefresh = timeDifference < config.refreshBlockInSeconds;
       if (shouldBlockRefresh) {
         return Promise.reject(formatMessage("errors.refreshLimitResched"));
-      } else {
-        commit("SET_WEATHER_LAST_CHECKED", currentTime);
       }
     }
 
     return getWeather(state.userLocation.location).then((weatherData) => {
       const currentWeather = new WeatherModel(weatherData);
       commit("SET_WEATHER", currentWeather);
+      commit("SET_WEATHER_LAST_CHECKED", Date.now());
       return currentWeather;
     }).catch((error) => {
       Logger.warn("getWeather error: ", error);

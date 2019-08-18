@@ -1,6 +1,6 @@
 import Logger from "js-logger";
 import { mixins } from "vue-class-component";
-import { Component } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 
 import StoreMixin from "../../mixins/store.mixin";
 
@@ -21,10 +21,39 @@ import WeatherWidget from "../../components/weather-widget";
   }
 })
 export default class Home extends mixins(StoreMixin) {
+  /*************************************************/
+  /* PROPERTIES */
+  /*************************************************/
+  isVisible: boolean = true;
+
+  /*************************************************/
+  /* COMPUTED'S */
+  /*************************************************/
+  get lastUpdated() {
+    return this.rootState.lastChecked;
+  }
+
+  /*************************************************/
+  /* WATCHERS */
+  /*************************************************/
+  @Watch("lastUpdated")
+  onStateUpdate() {
+    this.isVisible = false;
+    setTimeout(() => {
+      this.isVisible = true;
+    }, 1500);
+  }
+
+  /*************************************************/
+  /* METHODS */
+  /*************************************************/
   refreshWeather() {
     $store.dispatch("setSpinner", true);
+
     $store.dispatch("getCurrentWeather").then((result) => {
-      $store.dispatch("setSpinner", false);
+      setTimeout(() => {
+        $store.dispatch("setSpinner", false);
+      }, 660);
 
       Logger.info("Refresh Weather success: ", result);
 
@@ -36,7 +65,9 @@ export default class Home extends mixins(StoreMixin) {
         }
       });
     }).catch((error) => {
-      $store.dispatch("setSpinner", false);
+      setTimeout(() => {
+        $store.dispatch("setSpinner", false);
+      }, 660);
 
       Logger.warn("Refresh Weather error: ", error);
 

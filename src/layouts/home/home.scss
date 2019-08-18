@@ -1,5 +1,18 @@
 @import "../../styles/global.scss";
 
+.weatherFade-enter {
+  opacity: 0;
+}
+
+.weatherFade-enter-active,
+.weatherFade-leave-active {
+  transition: 660ms all ease;
+}
+
+.weatherFade-leave-to {
+  opacity: 0;
+}
+
 .home {
   position: relative;
   width: 100%;
