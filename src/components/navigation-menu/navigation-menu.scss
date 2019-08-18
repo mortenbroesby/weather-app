@@ -1,8 +1,14 @@
+@import "../../styles/global.scss";
+
 .navigation-menu {
+  position: fixed;
   display: flex;
   justify-content: flex-end;
 
+  width: 100%;
   padding: 2em;
+
+  @include z-index(menu);
 }
 
 .navigation-menu__item {

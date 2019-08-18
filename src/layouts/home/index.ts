@@ -8,26 +8,13 @@ import template from "./home.vue";
 import "./home.scss";
 
 import NavigationMenu from "../../components/navigation-menu";
+import WeatherWidget from "../../components/weather-widget";
 
 @Component({
   mixins: [template],
   components: {
     NavigationMenu,
+    WeatherWidget,
   }
 })
-export default class Home extends mixins(StoreMixin) {
-  /*************************************************/
-  /* COMPUTED'S */
-  /*************************************************/
-  get currentWeather() {
-    return this.rootState.currentWeather;
-  }
-
-  get weatherID() {
-    return this.currentWeather.weather.weatherType.id;
-  }
-
-  get weatherIcon() {
-    return `wi-owm-${this.weatherID}`;
-  }
-}
+export default class Home extends mixins(StoreMixin) {}

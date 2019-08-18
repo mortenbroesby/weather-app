@@ -9,11 +9,10 @@ import { $store } from "../../store";
 
 @Component({
   mixins: [template],
-  components: {}
 })
 export default class NavigationMenu extends Vue {
   /*************************************************/
-  /* METHODSS */
+  /* METHODS */
   /*************************************************/
   refreshWeather() {
     $store.dispatch("getCurrentWeather").then((result) => {
