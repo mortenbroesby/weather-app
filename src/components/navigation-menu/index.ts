@@ -12,6 +12,10 @@ export default class NavigationMenu extends Vue {
   /*************************************************/
   /* METHODS */
   /*************************************************/
+  updateLocation() {
+    this.$emit("updateLocation");
+  }
+
   refreshWeather() {
     this.$emit("refreshWeather");
   }

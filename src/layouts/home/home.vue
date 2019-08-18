@@ -1,6 +1,7 @@
 <template>
   <div id="home" class="home">
     <navigation-menu
+      @updateLocation="updateLocation"
       @refreshWeather="refreshWeather">
     </navigation-menu>
 

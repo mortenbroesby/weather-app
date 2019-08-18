@@ -34,7 +34,8 @@ let config: ConfigInterface = {
     },
   },
 
-  refreshBlockInSeconds: 5,
+  locationRefreshBlockInSeconds: 5,
+  weatherRefreshBlockInSeconds: 5,
 };
 
 config = {

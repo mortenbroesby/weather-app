@@ -3,7 +3,7 @@
 .navigation-menu {
   position: fixed;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   width: 100%;
   padding: 2em;
@@ -43,8 +43,13 @@
 .navigation-menu__icon {
   font-size: 1.5em;
 
+  &--update {
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
   &--refresh {
-    margin-left: 6px;
+    margin-left: 10px;
     color: rgba(255, 255, 255, 0.8);
   }
 }

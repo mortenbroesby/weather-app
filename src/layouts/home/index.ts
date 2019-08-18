@@ -47,6 +47,40 @@ export default class Home extends mixins(StoreMixin) {
   /*************************************************/
   /* METHODS */
   /*************************************************/
+  updateLocation() {
+    $store.dispatch("setSpinner", true);
+
+    $store.dispatch("updateLocation").then((result) => {
+      setTimeout(() => {
+        $store.dispatch("setSpinner", false);
+      }, 660);
+
+      Logger.info("Update location success: ", result);
+
+      Events.$emit("notify-me", {
+        status: "is-success",
+        data: {
+          title: "Success",
+          text: "Location updated successfully."
+        }
+      });
+    }).catch((error) => {
+      setTimeout(() => {
+        $store.dispatch("setSpinner", false);
+      }, 660);
+
+      Logger.warn("Update location error: ", error);
+
+      Events.$emit("notify-me", {
+        status: "is-warning",
+        data: {
+          title: "Error",
+          text: error
+        }
+      });
+    });
+  }
+
   refreshWeather() {
     $store.dispatch("setSpinner", true);
 
@@ -61,7 +95,7 @@ export default class Home extends mixins(StoreMixin) {
         status: "is-success",
         data: {
           title: "Success",
-          text: "Content refreshed successfully"
+          text: "Content refreshed successfully."
         }
       });
     }).catch((error) => {

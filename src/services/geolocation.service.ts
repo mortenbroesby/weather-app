@@ -1,22 +1,29 @@
 import geolocator from "geolocator";
 
-import { setItem, getItem } from "../utilities";
+import { setItem, getItem, removeItem } from "../utilities";
 import { localisationService } from "./localisation.service";
 
 import { Location, LocationError } from "../interfaces";
 import { GeolocationModel } from "../models/geolocation.model";
 
 class GeolocationService {
-  geolocator = {};
+  geolocator = undefined;
 
   location: GeolocationModel = new GeolocationModel();
 
-  requestLocation(): Promise<GeolocationModel> {
+  init() {
     this.geolocator = geolocator.config({
       language: localisationService.getActiveLanguage(),
     });
+  }
 
-    const storedLocation: GeolocationModel = getItem("storedUserLocation");
+  requestLocation(): Promise<GeolocationModel> {
+    if (!this.geolocator) {
+      this.init();
+    }
+
+    const storedLocation: GeolocationModel
+      = getItem("storedUserLocation");
 
     const options = {
       enableHighAccuracy: true,
@@ -46,6 +53,11 @@ class GeolocationService {
         return resolve(userLocation);
       });
     });
+  }
+
+  updateLocation() {
+    removeItem("storedUserLocation");
+    return this.requestLocation();
   }
 }
 

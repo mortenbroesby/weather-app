@@ -48,10 +48,11 @@ export interface RootState {
 
   // User data
   userLocation: GeolocationModel;
+  lastLocationCheck: number | undefined;
 
   // Weather
   currentWeather: WeatherModel;
-  lastChecked: number | undefined;
+  lastWeatherCheck: number | undefined;
 }
 
 export const state: RootState = {
@@ -61,10 +62,11 @@ export const state: RootState = {
 
   // User data
   userLocation: new GeolocationModel(),
+  lastLocationCheck: undefined,
 
   // Weather
   currentWeather: new WeatherModel(),
-  lastChecked: undefined,
+  lastWeatherCheck: undefined,
 };
 
 /*************************************************/
@@ -87,8 +89,12 @@ const mutations = {
     prevState.currentWeather = currentWeather;
   },
 
+  SET_LOCATION_LAST_CHECKED(prevState: RootState, timestamp: number): void {
+    prevState.lastLocationCheck = timestamp;
+  },
+
   SET_WEATHER_LAST_CHECKED(prevState: RootState, timestamp: number): void {
-    prevState.lastChecked = timestamp;
+    prevState.lastWeatherCheck = timestamp;
   },
 };
 
@@ -124,9 +130,33 @@ const actions = {
   getLocation({ commit }: Context) {
     return geolocationService.requestLocation().then((location: GeolocationModel) => {
       commit("SET_LOCATION", location);
+      commit("SET_LOCATION_LAST_CHECKED", Date.now());
+      return location;
     }).catch((fallback: LocationError) => {
       Logger.warn("geoLocationService error: ", fallback.error);
       commit("SET_LOCATION", fallback.fallbackLocation);
+      return fallback.error;
+    });
+  },
+
+  updateLocation({ commit }: Context) {
+    const lastChecked = state.lastLocationCheck || Date.now();
+    const lastCheckedSeconds = Math.floor(lastChecked / 1000);
+    const currentTimeSeconds = Math.floor(Date.now() / 1000);
+    const timeDifference = currentTimeSeconds - lastCheckedSeconds;
+
+    const shouldBlockRefresh = timeDifference < config.locationRefreshBlockInSeconds;
+    if (shouldBlockRefresh) {
+      return Promise.reject(formatMessage("errors.refreshLimitReached"));
+    }
+
+    return geolocationService.updateLocation().then((location: GeolocationModel) => {
+      commit("SET_LOCATION", location);
+      return location;
+    }).catch((fallback: LocationError) => {
+      Logger.warn("geoLocationService error: ", fallback.error);
+      commit("SET_LOCATION", fallback.fallbackLocation);
+      return fallback.error;
     });
   },
 
@@ -135,14 +165,14 @@ const actions = {
     if (isFirstLoad) {
       commit("SET_WEATHER_LAST_CHECKED", currentTime);
     } else {
-      const lastChecked = state.lastChecked || currentTime;
+      const lastChecked = state.lastWeatherCheck || currentTime;
       const lastCheckedSeconds = Math.floor(lastChecked / 1000);
       const currentTimeSeconds = Math.floor(Date.now() / 1000);
       const timeDifference = currentTimeSeconds - lastCheckedSeconds;
 
-      const shouldBlockRefresh = timeDifference < config.refreshBlockInSeconds;
+      const shouldBlockRefresh = timeDifference < config.weatherRefreshBlockInSeconds;
       if (shouldBlockRefresh) {
-        return Promise.reject(formatMessage("errors.refreshLimitResched"));
+        return Promise.reject(formatMessage("errors.refreshLimitReached"));
       }
     }
 

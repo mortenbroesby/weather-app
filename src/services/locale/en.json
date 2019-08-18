@@ -1,6 +1,7 @@
 {
   "main-menu": {
-    "refresh": "REFRESH"
+    "updateLocation": "UPDATE LOCATION",
+    "refreshWeather": "REFRESH WEATHER"
   },
 
   "weatherWidget": {
@@ -14,6 +15,6 @@
   },
 
   "errors": {
-    "refreshLimitResched": "Within refresh limit"
+    "refreshLimitReached": "Within refresh limit."
   }
 }
