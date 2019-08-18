@@ -30,7 +30,7 @@ export default class Home extends mixins(StoreMixin) {
   /* COMPUTED'S */
   /*************************************************/
   get lastUpdated() {
-    return this.rootState.lastChecked;
+    return this.rootState.lastWeatherCheck;
   }
 
   /*************************************************/
