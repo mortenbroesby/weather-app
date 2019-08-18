@@ -123,3 +123,32 @@ function migrateStoredData(storageItem: StorageItem) {
 export function stringIsEmpty(string: string) {
   return (!string || 0 === string.length);
 }
+
+function stringifyPrimitive(v: any): string {
+  switch (typeof v) {
+    case "string":
+      return v;
+    case "boolean":
+      return v ? "true" : "false";
+    case "number":
+      return isFinite(v) ? `${v}` : "";
+    default:
+      return "";
+  }
+}
+
+export function queryString(object: any) {
+  const separator: any = "&";
+  const equalSign: any = "=";
+
+  return Object.keys(object).map((k) => {
+    const ks = encodeURIComponent(stringifyPrimitive(k)) + equalSign;
+    if (Array.isArray(object[k])) {
+      return object[k].map((v: any) => {
+        return ks + encodeURIComponent(stringifyPrimitive(v));
+      }).join(separator);
+    } else {
+      return ks + encodeURIComponent(stringifyPrimitive(object[k]));
+    }
+  }).join(separator);
+}
