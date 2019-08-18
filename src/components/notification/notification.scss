@@ -1,5 +1,18 @@
 @import "../../styles/global.scss";
 
+.fadeInRight {
+  opacity: 0;
+}
+
+.animated,
+.animated {
+  transition: 660ms all ease;
+}
+
+.fadeOutRight {
+  opacity: 0;
+}
+
 .notification {
   position: fixed;
   width: 100%;
