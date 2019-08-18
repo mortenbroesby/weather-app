@@ -6,9 +6,6 @@
       "es2015"
     ],
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "module": "esnext",
     "moduleResolution": "node",
     "isolatedModules": false,
