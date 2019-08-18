@@ -2,6 +2,7 @@ import Logger from "js-logger";
 import axios, { AxiosInstance } from "axios";
 import config from "../config";
 import { queryString } from "../utilities";
+import { Location } from "../interfaces";
 
 /*************************************************/
 /* API SETUP */
@@ -17,11 +18,12 @@ const requestWeatherAPI: AxiosInstance = axios.create({
 /*************************************************/
 /* REQUEST METHODS */
 /*************************************************/
-function getWeatherRequest() {
+function getWeatherRequest(options: Location) {
   const payload: string = "?" + queryString({
     APPID: config.apiDomains.openWeatherMap.apiKey,
-    q: "Amsterdam",
     units: "metric",
+    lat: options.coords.latitude,
+    lon: options.coords.longitude,
   });
 
   return requestWeatherAPI.get(`weather${payload}`);
@@ -30,8 +32,8 @@ function getWeatherRequest() {
 /*************************************************/
 /* EXTERNAL METHODS */
 /*************************************************/
-export function getWeather() {
-  return getWeatherRequest().then((response: any) => {
+export function getWeather(options: Location) {
+  return getWeatherRequest(options).then((response: any) => {
     return (response.data);
   }).catch((error: any) => {
     return error;

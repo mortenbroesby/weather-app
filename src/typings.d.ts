@@ -11,3 +11,8 @@ declare module "*.json" {
 declare module "get-user-locale" {
   const getUserLocale: any;
 }
+
+declare module "geolocator" {
+  const value: any;
+  export default value;
+}

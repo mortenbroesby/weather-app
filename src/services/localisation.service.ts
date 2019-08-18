@@ -129,6 +129,6 @@ class LocalisationService {
   }
 }
 
-export let localisationService = new LocalisationService();
+export const localisationService = new LocalisationService();
 
 export const formatMessage = (key: string, payload?: any) => String(i18n.t(key, payload));
