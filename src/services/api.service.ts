@@ -1,4 +1,3 @@
-import Logger from "js-logger";
 import axios, { AxiosInstance } from "axios";
 import config from "../config";
 import { queryString } from "../utilities";
@@ -21,14 +20,12 @@ const requestWeatherAPI: AxiosInstance = axios.create({
 // Docs:
 // - https://openweathermap.org/weather-data
 // - https://openweathermap.org/current
-
 function getWeatherRequest(options: Location) {
   const payload: string = "?" + queryString({
     APPID: config.apiDomains.openWeatherMap.apiKey,
     units: "metric",
     lat: options.coords.latitude,
     lon: options.coords.longitude,
-    // mode: "xml",
   });
 
   return requestWeatherAPI.get(`weather${payload}`);

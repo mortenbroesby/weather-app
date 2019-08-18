@@ -1,5 +1,5 @@
 import Logger from "js-logger";
-import { Weather, WeatherType } from "../interfaces";
+import { Weather } from "../interfaces";
 
 export class WeatherModel {
   weather: Weather = {

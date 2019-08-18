@@ -3,7 +3,6 @@ import geolocator from "geolocator";
 import { setItem, getItem, removeItem } from "../utilities";
 import { localisationService } from "./localisation.service";
 
-import { Location, LocationError } from "../interfaces";
 import { GeolocationModel } from "../models/geolocation.model";
 
 class GeolocationService {

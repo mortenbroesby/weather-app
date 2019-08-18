@@ -129,6 +129,23 @@ export const capitalize = (s: string) => {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
+export function checkTimestamp({
+  timestampToCheck = Date.now(),
+  differenceInSeconds = 5
+}: {
+  timestampToCheck?: number;
+  differenceInSeconds?: any
+} = {}) {
+  const currentTime = Date.now();
+
+  const lastChecked = timestampToCheck || currentTime;
+  const lastCheckedSeconds = Math.floor(lastChecked / 1000);
+  const currentTimeSeconds = Math.floor(Date.now() / 1000);
+  const timeDifference = currentTimeSeconds - lastCheckedSeconds;
+
+  return timeDifference < differenceInSeconds;
+}
+
 function stringifyPrimitive(v: any): string {
   switch (typeof v) {
     case "string":

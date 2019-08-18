@@ -14,7 +14,26 @@
     "humidityTitle": " Humidity: {value}%"
   },
 
-  "errors": {
-    "refreshLimitReached": "Within refresh limit."
+  "notifications": {
+    "location": {
+      "success": {
+        "title": "Success",
+        "description": "Location updated successfully."
+      },
+      "warning": {
+        "title": "Warning",
+        "description": "Within refresh limit."
+      }
+    },
+    "weather": {
+      "success": {
+        "title": "Success",
+        "description": "Content refreshed successfully."
+      },
+      "warning": {
+        "title": "Warning",
+        "description": "Within refresh limit."
+      }
+    }
   }
 }

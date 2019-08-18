@@ -21,6 +21,9 @@ export default class Notification extends Vue {
   /*************************************************/
   eventbus = Events;
 
+  /*************************************************/
+  /* METHODS */
+  /*************************************************/
   closeNotification() {
     this.$emit("hide");
   }

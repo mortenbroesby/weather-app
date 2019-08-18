@@ -8,7 +8,6 @@ import "./notFound.scss";
 
 @Component({
   mixins: [template],
-  components: {}
 })
 export default class NotFound extends Vue {
   /*************************************************/

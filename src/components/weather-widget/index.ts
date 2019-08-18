@@ -1,4 +1,3 @@
-import Logger from "js-logger";
 import { mixins } from "vue-class-component";
 import { Component } from "vue-property-decorator";
 import { capitalize } from "../../utilities";

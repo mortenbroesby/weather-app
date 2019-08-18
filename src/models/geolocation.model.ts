@@ -1,4 +1,3 @@
-import Logger from "js-logger";
 import { Location } from "../interfaces";
 
 export class GeolocationModel {

@@ -9,6 +9,7 @@ import "./home.scss";
 
 import { Events } from "../../eventbus";
 import { $store } from "../../store";
+import { formatMessage } from "../../services/localisation.service";
 
 import NavigationMenu from "../../components/navigation-menu";
 import WeatherWidget from "../../components/weather-widget";
@@ -60,8 +61,8 @@ export default class Home extends mixins(StoreMixin) {
       Events.$emit("notify-me", {
         status: "is-success",
         data: {
-          title: "Success",
-          text: "Location updated successfully."
+          title: formatMessage("notifications.location.success.title"),
+          text: formatMessage("notifications.location.success.description"),
         }
       });
     }).catch((error) => {
@@ -74,8 +75,8 @@ export default class Home extends mixins(StoreMixin) {
       Events.$emit("notify-me", {
         status: "is-warning",
         data: {
-          title: "Error",
-          text: error
+          title: formatMessage("notifications.location.warning.title"),
+          text: formatMessage("notifications.location.warning.description"),
         }
       });
     });
@@ -94,8 +95,8 @@ export default class Home extends mixins(StoreMixin) {
       Events.$emit("notify-me", {
         status: "is-success",
         data: {
-          title: "Success",
-          text: "Content refreshed successfully."
+          title: formatMessage("notifications.weather.success.title"),
+          text: formatMessage("notifications.weather.success.description"),
         }
       });
     }).catch((error) => {
@@ -108,8 +109,8 @@ export default class Home extends mixins(StoreMixin) {
       Events.$emit("notify-me", {
         status: "is-warning",
         data: {
-          title: "Error",
-          text: error
+          title: formatMessage("notifications.weather.warning.title"),
+          text: formatMessage("notifications.weather.warning.description"),
         }
       });
     });

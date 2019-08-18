@@ -10,6 +10,7 @@ import { getWeather } from "../services/api.service";
 import { Location, LocationError, Weather } from "../interfaces";
 import { GeolocationModel } from "../models/geolocation.model";
 import { WeatherModel } from "../models/weather.model";
+import { checkTimestamp } from "../utilities";
 
 /*************************************************/
 /* SETUP */
@@ -105,8 +106,8 @@ const actions = {
   async initialise({ dispatch, commit }: Context): Promise<void> {
     dispatch("setSpinner", true);
 
-    await dispatch("getLocation");
-    await dispatch("getCurrentWeather", true);
+    await dispatch("getLocation", { isFirstLoad: true });
+    await dispatch("getCurrentWeather", { isFirstLoad: true });
 
     return new Promise((resolve) => {
       // Ensure the application loads for a minimum of ~0.5 seconds
@@ -127,8 +128,32 @@ const actions = {
     commit("SET_SPINNER_VISIBILITY", isVisible);
   },
 
-  getLocation({ commit }: Context) {
+  getLocation({ commit }: Context, { isFirstLoad = false }: { isFirstLoad?: boolean; } = {}) {
+    if (isFirstLoad) {
+      commit("SET_LOCATION_LAST_CHECKED", Date.now());
+    }
+
     return geolocationService.requestLocation().then((location: GeolocationModel) => {
+      commit("SET_LOCATION", location);
+      return location;
+    }).catch((fallback: LocationError) => {
+      Logger.warn("geoLocationService error: ", fallback.error);
+      commit("SET_LOCATION", fallback.fallbackLocation);
+      return fallback.error;
+    });
+  },
+
+  updateLocation({ commit }: Context) {
+    const shouldBlockRefresh = checkTimestamp({
+      timestampToCheck: state.lastLocationCheck,
+      differenceInSeconds: config.locationRefreshBlockInSeconds
+    });
+
+    if (shouldBlockRefresh) {
+      return Promise.reject("Refresh limit reached.");
+    }
+
+    return geolocationService.updateLocation().then((location: GeolocationModel) => {
       commit("SET_LOCATION", location);
       commit("SET_LOCATION_LAST_CHECKED", Date.now());
       return location;
@@ -139,40 +164,17 @@ const actions = {
     });
   },
 
-  updateLocation({ commit }: Context) {
-    const lastChecked = state.lastLocationCheck || Date.now();
-    const lastCheckedSeconds = Math.floor(lastChecked / 1000);
-    const currentTimeSeconds = Math.floor(Date.now() / 1000);
-    const timeDifference = currentTimeSeconds - lastCheckedSeconds;
-
-    const shouldBlockRefresh = timeDifference < config.locationRefreshBlockInSeconds;
-    if (shouldBlockRefresh) {
-      return Promise.reject(formatMessage("errors.refreshLimitReached"));
-    }
-
-    return geolocationService.updateLocation().then((location: GeolocationModel) => {
-      commit("SET_LOCATION", location);
-      return location;
-    }).catch((fallback: LocationError) => {
-      Logger.warn("geoLocationService error: ", fallback.error);
-      commit("SET_LOCATION", fallback.fallbackLocation);
-      return fallback.error;
-    });
-  },
-
-  getCurrentWeather({ commit, state }: Context, isFirstLoad: boolean) {
-    const currentTime = Date.now();
+  getCurrentWeather({ commit }: Context, { isFirstLoad = false }: { isFirstLoad?: boolean; } = {}) {
     if (isFirstLoad) {
-      commit("SET_WEATHER_LAST_CHECKED", currentTime);
+      commit("SET_WEATHER_LAST_CHECKED", Date.now());
     } else {
-      const lastChecked = state.lastWeatherCheck || currentTime;
-      const lastCheckedSeconds = Math.floor(lastChecked / 1000);
-      const currentTimeSeconds = Math.floor(Date.now() / 1000);
-      const timeDifference = currentTimeSeconds - lastCheckedSeconds;
+      const shouldBlockRefresh = checkTimestamp({
+        timestampToCheck: state.lastWeatherCheck,
+        differenceInSeconds: config.weatherRefreshBlockInSeconds
+      });
 
-      const shouldBlockRefresh = timeDifference < config.weatherRefreshBlockInSeconds;
       if (shouldBlockRefresh) {
-        return Promise.reject(formatMessage("errors.refreshLimitReached"));
+        return Promise.reject("Refresh limit reached.");
       }
     }
 
