@@ -1,0 +1,87 @@
+@import "../../styles/global.scss";
+
+.spinnerFade-enter {
+  opacity: 0;
+}
+
+.spinnerFade-enter-active,
+.spinnerFade-leave-active {
+  transition: 200ms all ease;
+}
+
+.spinnerFade-leave-to {
+  opacity: 0;
+}
+
+.spinner {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  pointer-events: none;
+  @include z-index(spinner);
+
+  &__item {
+    position: relative;
+    width: 100vw;
+
+    &__bar {
+      position:absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 6px;
+      background: #838ffc;
+      overflow: hidden;
+    }
+
+    &__bar::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      background: #06127c;
+      animation: box-1 2100ms cubic-bezier(0.65,0.81,0.73,0.4) infinite;
+    }
+
+    &__bar::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      background: #06127c;
+      animation: box-2 2100ms cubic-bezier(0.16,0.84,0.44,1) infinite;
+      animation-delay: 1150ms;
+    }
+  }
+}
+
+@keyframes box-1 {
+  0% {
+    left:-35%;
+    right:100%;
+  }
+  60%,
+  100% {
+    left:100%;
+    right:-90%;
+  }
+}
+
+@keyframes box-2 {
+  0% {
+    left:-200%;
+    right:100%;
+  }
+  60%,
+  100% {
+    left:107%;
+    right:-8%;
+  }
+}

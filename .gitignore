@@ -1,0 +1,27 @@
+# Generic
+node_modules/
+.DS_Store
+package-lock.json
+.cache
+.vscode/
+.idea/
+
+# Build
+*.min.js
+dist
+lib
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+tmp
+
+# Tests
+test/unit/coverage
+test/unit/reports
+test/e2e/reports
+coverage
+.nyc_output
