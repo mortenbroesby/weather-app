@@ -19,10 +19,11 @@ export default class Home extends mixins(StoreMixin) {
     return this.rootState.currentWeather;
   }
 
-  /*************************************************/
-  /* LIFE CYCLE */
-  /*************************************************/
-  mounted() {
+  get weatherID() {
+    return this.currentWeather.weather.weatherType.id;
+  }
 
+  get weatherIcon() {
+    return `wi-owm-${this.weatherID}`;
   }
 }

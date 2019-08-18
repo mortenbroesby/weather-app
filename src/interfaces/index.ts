@@ -17,9 +17,10 @@ export interface LocationError {
 }
 
 export interface Weather {
+  precipitation: number;
   temperature: Temperature;
-  windSpeed: number;
   humidity: number;
+  windSpeed: number;
   weatherType: WeatherType;
 }
 
@@ -27,7 +28,6 @@ export interface WeatherType {
   id: number;
   type: string;
   description: string;
-  icon: string;
 }
 
 export interface Temperature {

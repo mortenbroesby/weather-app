@@ -39,5 +39,8 @@
   "timezone": 7200,
   "id": 2759794,
   "name": "Amsterdam",
-  "cod": 200
+  "cod": 200,
+  "rain": {
+    "3h": 0
+  }
 }

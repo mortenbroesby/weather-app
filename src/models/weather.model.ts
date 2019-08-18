@@ -3,30 +3,48 @@ import { Weather, WeatherType } from "../interfaces";
 
 export class WeatherModel {
   weather: Weather = {
-    // Degrees celsius
+    // Precipitation in mm
+    precipitation: 0,
+
+    // Temperature in degrees celsius
     temperature: {
       current: 0,
       minimum: 0,
       maximum: 0,
     },
 
-    // Meters / second
-    windSpeed: 0,
-
-    // Percentage
+    // Humidity in percentage
     humidity: 0,
 
-    // https://openweathermap.org/weather-conditions
+    // Wind-speed in meters/second
+    windSpeed: 0,
+
+    // Weather conditions
     weatherType: {
       id: 800,
       type: "Clear",
       description: "clear sky",
-      icon: "01d",
     },
   };
 
   constructor(metadata?: any) {
     if (metadata) {
+      // Precipitation
+
+      // Note: Precipitation is untested.
+      // For one, there is - no - precipitation field directly available...
+      // Second: Apparently OWM does not display the "rain amount" object if it's not raining.
+      // I looked at their XML, which just reports "no" when it's not raining,
+      // even though the API says there should be a "precipitation.value".
+
+      if (metadata.rain && typeof metadata.rain === "object" && metadata.rain.length > 0) {
+        const precipitation = Object.values(metadata.rain)[0];
+
+        if (typeof precipitation === "number") {
+          this.weather.precipitation = precipitation;
+        }
+      }
+
       if (metadata.main) {
         // Temperature
         if (metadata.main.temp && typeof metadata.main.temp === "number") {
@@ -45,24 +63,23 @@ export class WeatherModel {
         if (metadata.main.humidity && typeof metadata.main.humidity === "number") {
           this.weather.humidity = metadata.main.humidity;
         }
+      }
 
-        // Wind speed
-        if (metadata.wind.speed && typeof metadata.wind.speed === "number") {
-          this.weather.windSpeed = Math.floor(metadata.wind.speed);
-        }
+      // Wind speed
+      if (metadata.wind && metadata.wind.speed && typeof metadata.wind.speed === "number") {
+        this.weather.windSpeed = Math.floor(metadata.wind.speed);
+      }
 
-        // Weather type
-        if (metadata.weather && typeof metadata.weather === "object" && metadata.weather.length > 0) {
-          const weatherType = metadata.weather[0];
+      // Weather type
+      if (metadata.weather && typeof metadata.weather === "object" && metadata.weather.length > 0) {
+        const weatherType = metadata.weather[0];
 
-          if (weatherType.id && weatherType.main && weatherType.description && weatherType.icon) {
-            this.weather.weatherType = {
-              id: weatherType.id,
-              type: weatherType.main,
-              description: weatherType.description,
-              icon: weatherType.icon,
-            };
-          }
+        if (weatherType.id && weatherType.main && weatherType.description) {
+          this.weather.weatherType = {
+            id: weatherType.id,
+            type: weatherType.main,
+            description: weatherType.description,
+          };
         }
       }
     }
