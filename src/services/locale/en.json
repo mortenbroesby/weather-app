@@ -1,3 +1,9 @@
 {
+  "errors": {
+    "refreshLimitResched": "Refresh limit reached"
+  },
 
+  "main-menu": {
+    "refresh": "REFRESH"
+  }
 }

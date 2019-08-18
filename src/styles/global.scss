@@ -1,63 +1,3 @@
-// Font family
-$font-family--fallback: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-$font-family--global: "Roboto", $font-family--fallback;
-
-$colors: (
-  'background':     rgba(255, 255, 255, 1),
-  'grey':           rgba(33, 33, 33, 0.2),
-  'dark-grey':           rgba(33, 33, 33, 0.8),
-  'black':          rgba(0, 0, 0, 1),
-  'white':          rgba(255, 255, 255, 1),
-  'blue':             #0053ba,
-  'dark-blue':        #0053ba,
-);
-
-/* Color variables */
-$main-application-background: map-get($colors, 'background');
-
-/* Mixins */
-@function color($key) {
-  @return map-get($colors, $key);
-}
-
-/* Z-index landscape */
-$z-index: (
-  spinner             : 100,
-  popup               : 50,
-  root                : 0,
-  behind              : -1,
-);
-
-@function z-index($key) {
-  @return map-get($z-index, $key);
-}
-
-@mixin z-index($key) {
-  z-index: z-index($key);
-}
-
-html,
-body {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  padding: 0;
-  margin: 0;
-  font-family: $font-family--global;
-  letter-spacing: 1px;
-  line-height: 1;
-  color: color('black');
-  background-color: color('background');
-  @include z-index(root);
-}
-
-html {
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
 /* CSS RESETS */
 
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -137,4 +77,65 @@ html {
 
 ul {
   padding-left: 20px;
+}
+
+
+// Font family
+$font-family--fallback: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family--global: Roboto, $font-family--fallback;
+
+$colors: (
+  'background':     rgba(255, 255, 255, 1),
+  'grey':           rgba(33, 33, 33, 0.2),
+  'dark-grey':           rgba(33, 33, 33, 0.8),
+  'black':          rgba(0, 0, 0, 1),
+  'white':          rgba(255, 255, 255, 1),
+  'blue':             #0053ba,
+  'dark-blue':        #0053ba,
+);
+
+/* Color variables */
+$main-application-background: map-get($colors, 'background');
+
+/* Mixins */
+@function color($key) {
+  @return map-get($colors, $key);
+}
+
+/* Z-index landscape */
+$z-index: (
+  spinner             : 100,
+  popup               : 50,
+  root                : 0,
+  behind              : -1,
+);
+
+@function z-index($key) {
+  @return map-get($z-index, $key);
+}
+
+@mixin z-index($key) {
+  z-index: z-index($key);
+}
+
+html,
+body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  font-family: $font-family--global;
+  letter-spacing: 1px;
+  line-height: 1;
+  color: color('black');
+  background-color: color('background');
+  @include z-index(root);
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }

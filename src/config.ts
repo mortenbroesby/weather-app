@@ -33,6 +33,8 @@ let config: ConfigInterface = {
       "culture": "en-US",
     },
   },
+
+  refreshBlockInSeconds: 5,
 };
 
 config = {

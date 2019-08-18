@@ -1,0 +1,15 @@
+.navigation-menu {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 2em;
+}
+
+.navigation-menu__item {
+  cursor: pointer;
+
+  &:hover,
+  &:active {
+    opacity: 0.5;
+  }
+}

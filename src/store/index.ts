@@ -1,8 +1,10 @@
 import Logger from "js-logger";
 import Vue from "vue";
 import * as Vuex from "vuex";
+import config from "../config";
 
 import { geolocationService } from "../services/geolocation.service";
+import { formatMessage } from "../services/localisation.service";
 import { getWeather } from "../services/api.service";
 
 import { Location, LocationError, Weather } from "../interfaces";
@@ -49,6 +51,7 @@ export interface RootState {
 
   // Weather
   currentWeather: WeatherModel;
+  lastChecked: number | undefined;
 }
 
 export const state: RootState = {
@@ -61,6 +64,7 @@ export const state: RootState = {
 
   // Weather
   currentWeather: new WeatherModel(),
+  lastChecked: undefined,
 };
 
 /*************************************************/
@@ -82,6 +86,10 @@ const mutations = {
   SET_WEATHER(prevState: RootState, currentWeather: WeatherModel): void {
     prevState.currentWeather = currentWeather;
   },
+
+  SET_WEATHER_LAST_CHECKED(prevState: RootState, timestamp: number): void {
+    prevState.lastChecked = timestamp;
+  },
 };
 
 /*************************************************/
@@ -92,7 +100,7 @@ const actions = {
     dispatch("setSpinner", true);
 
     await dispatch("getLocation");
-    await dispatch("getCurrentWeather");
+    await dispatch("getCurrentWeather", true);
 
     return new Promise((resolve) => {
       // Ensure the application loads for a minimum of ~0.5 seconds
@@ -122,10 +130,28 @@ const actions = {
     });
   },
 
-  getCurrentWeather({ commit }: Context) {
+  getCurrentWeather({ commit, state }: Context, isFirstLoad: boolean) {
+    const currentTime = Date.now();
+    if (isFirstLoad) {
+      commit("SET_WEATHER_LAST_CHECKED", currentTime);
+    } else {
+      const lastChecked = state.lastChecked || currentTime;
+      const lastCheckedSeconds = Math.floor(lastChecked / 1000);
+      const currentTimeSeconds = Math.floor(Date.now() / 1000);
+      const timeDifference = currentTimeSeconds - lastCheckedSeconds;
+
+      const shouldBlockRefresh = timeDifference < config.refreshBlockInSeconds;
+      if (shouldBlockRefresh) {
+        return Promise.reject(formatMessage("errors.refreshLimitResched"));
+      } else {
+        commit("SET_WEATHER_LAST_CHECKED", currentTime);
+      }
+    }
+
     return getWeather(state.userLocation.location).then((weatherData) => {
       const currentWeather = new WeatherModel(weatherData);
       commit("SET_WEATHER", currentWeather);
+      return currentWeather;
     }).catch((error) => {
       Logger.warn("getWeather error: ", error);
     });
