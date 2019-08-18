@@ -6,7 +6,7 @@
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: 200ms all ease;
+  transition: 330ms all ease;
 }
 
 .fade-leave-to {
@@ -26,5 +26,11 @@
 }
 
 .application {
-  background: rgb(94, 136, 252);
+  background: radial-gradient(
+    circle farthest-side, #5e88fc, #1e5799
+  );
+}
+
+.main-route {
+  filter: blur(30px);
 }

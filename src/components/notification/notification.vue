@@ -9,6 +9,7 @@
       :timeout="3000">
       <template slot="content" scope="{data}">
         <div class="notification__item__metadata">
+          <div class="notification__item__gradient"></div>
           <h4 class="notification__item__title">{{ data.title }}</h4>
           <p class="notification__item__text">{{ data.text }}</p>
         </div>
