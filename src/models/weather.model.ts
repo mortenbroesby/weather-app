@@ -25,6 +25,9 @@ export class WeatherModel {
     description: "clear sky",
   };
 
+  // JS Timestamp
+  timestamp: number = Date.now();
+
   constructor(metadata?: any) {
     if (metadata) {
       // Precipitation
@@ -79,6 +82,11 @@ export class WeatherModel {
             description: weatherType.description,
           };
         }
+      }
+
+      // JS Timestamp
+      if (metadata.dt && typeof metadata.dt === "number") {
+        this.timestamp = metadata.dt;
       }
     }
   }

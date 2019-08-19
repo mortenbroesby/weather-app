@@ -1,7 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`models/forecast.model.ts Generates a valid Forecast model 1`] = `
+ForecastModel {
+  "itemCount": 3,
+  "items": Array [
+    WeatherModel {
+      "humidity": 70,
+      "precipitation": 0,
+      "temperature": Object {
+        "current": 20,
+        "maximum": 20,
+        "minimum": 18,
+      },
+      "timestamp": 1566226800,
+      "weatherType": Object {
+        "description": "clear sky",
+        "id": 800,
+        "type": "Clear",
+      },
+      "windSpeed": 9,
+    },
+    WeatherModel {
+      "humidity": 72,
+      "precipitation": 0.688,
+      "temperature": Object {
+        "current": 20,
+        "maximum": 20,
+        "minimum": 18,
+      },
+      "timestamp": 1566237600,
+      "weatherType": Object {
+        "description": "light rain",
+        "id": 500,
+        "type": "Rain",
+      },
+      "windSpeed": 9,
+    },
+    WeatherModel {
+      "humidity": 72,
+      "precipitation": 1.25,
+      "temperature": Object {
+        "current": 19,
+        "maximum": 19,
+        "minimum": 18,
+      },
+      "timestamp": 1566248400,
+      "weatherType": Object {
+        "description": "light rain",
+        "id": 500,
+        "type": "Rain",
+      },
+      "windSpeed": 10,
+    },
+  ],
+}
+`;
+
 exports[`models/forecast.model.ts Generates a valid Forecast model on malformed data 1`] = `
 ForecastModel {
-  "metadata": Object {},
+  "itemCount": 0,
+  "items": Array [],
+}
+`;
+
+exports[`models/forecast.model.ts Generates a valid Forecast model without items 1`] = `
+ForecastModel {
+  "itemCount": 0,
+  "items": Array [],
 }
 `;

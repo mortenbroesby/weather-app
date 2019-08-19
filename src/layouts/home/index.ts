@@ -78,7 +78,7 @@ export default class Home extends mixins(StoreMixin) {
   refreshWeather() {
     this.showSpinner();
 
-    $store.dispatch("getCurrentWeather").then((result) => {
+    $store.dispatch("getWeather").then((result) => {
       Logger.info("Refresh Weather - success: ", result);
 
       this.sendNotification({

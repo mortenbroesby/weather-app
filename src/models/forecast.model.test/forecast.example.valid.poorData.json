@@ -1,0 +1,19 @@
+{
+  "cod": "200",
+  "message": 0.0102,
+  "cnt": 3,
+  "list": [],
+  "city": {
+    "id": 2759794,
+    "name": "Amsterdam",
+    "coord": {
+      "lat": 52.374,
+      "lon": 4.8897
+    },
+    "country": "NL",
+    "population": 2122311,
+    "timezone": 7200,
+    "sunrise": 1566188969,
+    "sunset": 1566241150
+  }
+}

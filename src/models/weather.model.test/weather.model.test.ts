@@ -5,6 +5,8 @@ describe("models/weather.model.ts", () => {
     const SampleJson = require("./weather.example.valid.richData");
     const model = new WeatherModel(SampleJson);
 
+    expect(model.timestamp).toBe(1566142435);
+
     expect(model).toMatchSnapshot();
   });
 

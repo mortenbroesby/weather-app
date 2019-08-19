@@ -9,6 +9,7 @@ WeatherModel {
     "maximum": 20,
     "minimum": 18,
   },
+  "timestamp": 1566142435,
   "weatherType": Object {
     "description": "shower rain",
     "id": 521,
@@ -27,6 +28,7 @@ WeatherModel {
     "maximum": 0,
     "minimum": 0,
   },
+  "timestamp": 1566227684248,
   "weatherType": Object {
     "description": "clear sky",
     "id": 800,
@@ -45,6 +47,7 @@ WeatherModel {
     "maximum": 0,
     "minimum": 0,
   },
+  "timestamp": 1566227684248,
   "weatherType": Object {
     "description": "clear sky",
     "id": 800,
@@ -63,6 +66,7 @@ WeatherModel {
     "maximum": 0,
     "minimum": 0,
   },
+  "timestamp": 1566227684244,
   "weatherType": Object {
     "description": "clear sky",
     "id": 800,
