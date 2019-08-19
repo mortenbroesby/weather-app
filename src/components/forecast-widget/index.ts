@@ -1,40 +1,30 @@
 import { mixins } from "vue-class-component";
-import { Component } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 
 import template from "./forecast-widget.vue";
 import "./forecast-widget.scss";
 
 import StoreMixin from "../../mixins/store.mixin";
 
-import { Line, mixins as chartMixins } from "vue-chartjs";
+import { WeatherModel } from "../../models/weather.model";
+
+import LineChart from "../chart";
 
 @Component({
-  mixins: [
-    template,
-    chartMixins.reactiveProp
-  ],
+  mixins: [template],
   components: {
-    Line,
+    LineChart,
   }
 })
 export default class ForecastWidget extends mixins(StoreMixin) {
   /*************************************************/
   /* PROPERTIES */
   /*************************************************/
-  chartdata: {
-    labels: ["January", "February"],
-    datasets: [
-      {
-        label: "Data One",
-        backgroundColor: "#f87979",
-        data: [40, 20]
-      }
-    ]
-  };
+  hasLoaded = false;
 
-  options: {
-    responsive: true,
-    maintainAspectRatio: false
+  chartData: WeatherModel[] = [];
+  chartOptions = {
+    responsive: true
   };
 
   /*************************************************/
@@ -46,5 +36,14 @@ export default class ForecastWidget extends mixins(StoreMixin) {
 
   get forecastItems() {
     return this.forecast.items;
+  }
+
+  /*************************************************/
+  /* WATCHERS */
+  /*************************************************/
+  @Watch("forecastItems", { immediate: true })
+  onChartUpdate() {
+    this.chartData = this.forecastItems;
+    this.hasLoaded = true;
   }
 }
