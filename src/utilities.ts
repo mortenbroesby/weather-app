@@ -1,6 +1,7 @@
 import config from "./config";
 import Logger from "js-logger";
 import { formatMessage } from "./services/localisation.service";
+import moment from "moment";
 
 /**
  * [ Storage utility function ]
@@ -129,6 +130,11 @@ export const capitalize = (s: string) => {
   if (typeof s !== "string" || s.length === 0) return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
+
+export function timestampToTime(javascriptTimestamp: number) {
+  const date = new Date(javascriptTimestamp * 1000);
+  return moment(date).format("dddd HH:mm");
+}
 
 export function checkTimestamp({
   timestampToCheck = Date.now(),

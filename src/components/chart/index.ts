@@ -5,6 +5,7 @@ import { Component } from "vue-property-decorator";
 import { Line, mixins as chartMixins } from "vue-chartjs";
 import StoreMixin from "../../mixins/store.mixin";
 import { WeatherModel } from "../../models/weather.model";
+import { timestampToTime } from "../../utilities";
 
 @Component({
   mixins: [chartMixins.reactiveData],
@@ -79,7 +80,9 @@ export default class Chart extends mixins(StoreMixin, Line) {
 
     if (this.forecastItems && this.forecastItems.length > 0) {
       this.forecastItems.forEach((item: WeatherModel) => {
-        chartData.labels.push(item.timestamp as never);
+        const time = timestampToTime(item.timestamp);
+
+        chartData.labels.push(time as never);
 
         chartData.datasets[0].data.push(item.precipitation as never);
         chartData.datasets[1].data.push(item.humidity as never);
