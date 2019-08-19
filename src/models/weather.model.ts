@@ -31,13 +31,6 @@ export class WeatherModel {
   constructor(metadata?: any) {
     if (metadata) {
       // Precipitation
-
-      // Note: Precipitation is untested.
-      // For one, there is - no - precipitation field directly available...
-      // Second: Apparently OWM does not display the "rain amount" object if it's not raining.
-      // I looked at their XML, which just reports "no" when it's not raining,
-      // even though the API says there should be a "precipitation.value".
-
       if (metadata.rain && typeof metadata.rain === "object" && Object.keys(metadata.rain).length) {
         const precipitation = Object.values(metadata.rain)[0];
 
