@@ -40,7 +40,7 @@ export default class Chart extends mixins(StoreMixin, Line) {
 
   updateData() {
     let chartData = {
-      labels: ["Now", "Tonight"],
+      labels: [],
       datasets: [
         {
           label: "Precipitation",
@@ -79,6 +79,8 @@ export default class Chart extends mixins(StoreMixin, Line) {
 
     if (this.forecastItems && this.forecastItems.length > 0) {
       this.forecastItems.forEach((item: WeatherModel) => {
+        chartData.labels.push(item.timestamp as never);
+
         chartData.datasets[0].data.push(item.precipitation as never);
         chartData.datasets[1].data.push(item.humidity as never);
         chartData.datasets[2].data.push(item.windSpeed as never);
