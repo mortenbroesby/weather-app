@@ -1,0 +1,19 @@
+{
+  "ip": "95.97.12.176",
+  "coords": {
+    "latitude": "52.3846",
+    "longitude": "4.9172"
+  },
+  "address": {
+    "city": "Amsterdam",
+    "state": "North Holland",
+    "countryCode": "NL",
+    "country": "Netherlands",
+    "region": "North Holland"
+  },
+  "timezone": {
+    "id": "Europe/Amsterdam"
+  },
+  "provider": "geojs.io",
+  "flag": "//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/flags/4x3/nl.svg"
+}

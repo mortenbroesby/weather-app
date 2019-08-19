@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`models/weather.model.ts Generates a valid Weather model 1`] = `
+WeatherModel {
+  "weather": Object {
+    "humidity": 68,
+    "precipitation": 10,
+    "temperature": Object {
+      "current": 19,
+      "maximum": 20,
+      "minimum": 18,
+    },
+    "weatherType": Object {
+      "description": "shower rain",
+      "id": 521,
+      "type": "Rain",
+    },
+    "windSpeed": 7,
+  },
+}
+`;
+
+exports[`models/weather.model.ts Generates a valid Weather model on malformed data 1`] = `
+WeatherModel {
+  "weather": Object {
+    "humidity": 0,
+    "precipitation": 0,
+    "temperature": Object {
+      "current": 0,
+      "maximum": 0,
+      "minimum": 0,
+    },
+    "weatherType": Object {
+      "description": "clear sky",
+      "id": 800,
+      "type": "Clear",
+    },
+    "windSpeed": 0,
+  },
+}
+`;
+
+exports[`models/weather.model.ts Generates a valid Weather model with main data missing 1`] = `
+WeatherModel {
+  "weather": Object {
+    "humidity": 0,
+    "precipitation": 0,
+    "temperature": Object {
+      "current": 0,
+      "maximum": 0,
+      "minimum": 0,
+    },
+    "weatherType": Object {
+      "description": "clear sky",
+      "id": 800,
+      "type": "Clear",
+    },
+    "windSpeed": 0,
+  },
+}
+`;
+
+exports[`models/weather.model.ts Generates a valid Weather model with poor data 1`] = `
+WeatherModel {
+  "weather": Object {
+    "humidity": 0,
+    "precipitation": 0,
+    "temperature": Object {
+      "current": 0,
+      "maximum": 0,
+      "minimum": 0,
+    },
+    "weatherType": Object {
+      "description": "clear sky",
+      "id": 800,
+      "type": "Clear",
+    },
+    "windSpeed": 0,
+  },
+}
+`;

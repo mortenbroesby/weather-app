@@ -37,7 +37,7 @@ export class WeatherModel {
       // I looked at their XML, which just reports "no" when it's not raining,
       // even though the API says there should be a "precipitation.value".
 
-      if (metadata.rain && typeof metadata.rain === "object" && metadata.rain.length > 0) {
+      if (metadata.rain && typeof metadata.rain === "object" && Object.keys(metadata.rain).length) {
         const precipitation = Object.values(metadata.rain)[0];
 
         if (typeof precipitation === "number") {

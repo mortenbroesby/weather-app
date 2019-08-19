@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`models/geolocation.model.ts Generates a valid Geolocation model 1`] = `
+GeolocationModel {
+  "location": Object {
+    "coords": Object {
+      "latitude": 52.3846,
+      "longitude": 4.9172,
+    },
+  },
+}
+`;
+
+exports[`models/geolocation.model.ts Generates a valid Geolocation model on malformed data 1`] = `
+GeolocationModel {
+  "location": Object {
+    "coords": Object {
+      "latitude": 52.3886,
+      "longitude": 4.9068,
+    },
+  },
+}
+`;
+
+exports[`models/geolocation.model.ts Generates a valid Geolocation model with malformed data 1`] = `
+GeolocationModel {
+  "location": Object {
+    "coords": Object {
+      "latitude": 52.3886,
+      "longitude": 4.9068,
+    },
+  },
+}
+`;
+
+exports[`models/geolocation.model.ts Generates a valid Geolocation model with poor data 1`] = `
+GeolocationModel {
+  "location": Object {
+    "coords": Object {
+      "latitude": 52.3886,
+      "longitude": 4.9068,
+    },
+  },
+}
+`;

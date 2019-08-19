@@ -1,0 +1,28 @@
+{
+  "coord": {
+    "lon": 4.91,
+    "lat": 52.39
+  },
+  "base": "stations",
+  "visibility": 10000,
+  "wind": {
+    "speed": "7.2",
+    "deg": 240
+  },
+  "clouds": {
+    "all": 20
+  },
+  "dt": 1566142435,
+  "sys": {
+    "type": 1,
+    "id": 1524,
+    "message": 0.0103,
+    "country": "NL",
+    "sunrise": 1566102462,
+    "sunset": 1566154873
+  },
+  "timezone": 7200,
+  "id": 2759794,
+  "name": "Amsterdam",
+  "cod": 200
+}
