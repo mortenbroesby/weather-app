@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`models/forecast.model.ts Generates a valid Forecast model on malformed data 1`] = `
+ForecastModel {
+  "metadata": Object {},
+}
+`;

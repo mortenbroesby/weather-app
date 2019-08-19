@@ -31,11 +31,11 @@ export default class WeatherWidget extends mixins(StoreMixin) {
   }
 
   get weatherID() {
-    return this.currentWeather.weather.weatherType.id;
+    return this.currentWeather.weatherType.id;
   }
 
   get weatherType() {
-    return capitalize(this.currentWeather.weather.weatherType.description);
+    return capitalize(this.currentWeather.weatherType.description);
   }
 
   get weatherIcon() {
@@ -43,19 +43,19 @@ export default class WeatherWidget extends mixins(StoreMixin) {
   }
 
   get precipitation() {
-    return this.currentWeather.weather.precipitation;
+    return this.currentWeather.precipitation;
   }
 
   get temperature() {
-    return this.currentWeather.weather.temperature.current;
+    return this.currentWeather.temperature.current;
   }
 
   get humidity() {
-    return this.currentWeather.weather.humidity;
+    return this.currentWeather.humidity;
   }
 
   get windSpeed() {
-    return this.currentWeather.weather.windSpeed;
+    return this.currentWeather.windSpeed;
   }
 
   /*************************************************/

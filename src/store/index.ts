@@ -4,13 +4,14 @@ import * as Vuex from "vuex";
 import config from "../config";
 
 import { geolocationService } from "../services/geolocation.service";
-import { formatMessage } from "../services/localisation.service";
 import { getWeather } from "../services/api.service";
+import { checkTimestamp } from "../utilities";
 
-import { Location, LocationError, Weather } from "../interfaces";
+import { LocationError } from "../interfaces";
+
 import { GeolocationModel } from "../models/geolocation.model";
 import { WeatherModel } from "../models/weather.model";
-import { checkTimestamp } from "../utilities";
+import { ForecastModel } from "../models/forecast.model";
 
 /*************************************************/
 /* SETUP */
@@ -53,6 +54,7 @@ export interface RootState {
 
   // Weather
   currentWeather: WeatherModel;
+  forecastWeather: ForecastModel;
   lastWeatherCheck: number | undefined;
 }
 
@@ -67,6 +69,7 @@ export const state: RootState = {
 
   // Weather
   currentWeather: new WeatherModel(),
+  forecastWeather: new ForecastModel(),
   lastWeatherCheck: undefined,
 };
 
@@ -86,8 +89,12 @@ const mutations = {
     prevState.userLocation = userLocation;
   },
 
-  SET_WEATHER(prevState: RootState, currentWeather: WeatherModel): void {
+  SET_CURRENT_WEATHER(prevState: RootState, currentWeather: WeatherModel): void {
     prevState.currentWeather = currentWeather;
+  },
+
+  SET_FORECAST_WEATHER(prevState: RootState, forecastWeather: ForecastModel): void {
+    prevState.forecastWeather = forecastWeather;
   },
 
   SET_LOCATION_LAST_CHECKED(prevState: RootState, timestamp: number): void {
@@ -107,7 +114,7 @@ const actions = {
     dispatch("setSpinner", true);
 
     await dispatch("getLocation", { isFirstLoad: true });
-    await dispatch("getCurrentWeather", { isFirstLoad: true });
+    await dispatch("getWeather", { isFirstLoad: true });
 
     return new Promise((resolve) => {
       // Ensure the application loads for a minimum of ~0.5 seconds
@@ -164,7 +171,7 @@ const actions = {
     });
   },
 
-  getCurrentWeather({ commit }: Context, { isFirstLoad = false }: { isFirstLoad?: boolean; } = {}) {
+  async getWeather({ commit }: Context, { isFirstLoad = false }: { isFirstLoad?: boolean; } = {}) {
     if (isFirstLoad) {
       commit("SET_WEATHER_LAST_CHECKED", Date.now());
     } else {
@@ -178,14 +185,17 @@ const actions = {
       }
     }
 
-    return getWeather(state.userLocation.location).then((weatherData) => {
-      const currentWeather = new WeatherModel(weatherData);
-      commit("SET_WEATHER", currentWeather);
+    try {
+      const weatherData = await getWeather(state.userLocation.location);
+
       commit("SET_WEATHER_LAST_CHECKED", Date.now());
-      return currentWeather;
-    }).catch((error) => {
+
+      commit("SET_CURRENT_WEATHER", weatherData.currentWeather);
+      commit("SET_FORECAST_WEATHER", weatherData.forecastWeather);
+      return weatherData.currentWeather;
+    } catch (error) {
       Logger.warn("getWeather error: ", error);
-    });
+    }
   },
 };
 
