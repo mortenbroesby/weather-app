@@ -35,3 +35,8 @@ export interface Temperature {
   minimum: number;
   maximum: number;
 }
+
+export interface NotificationData {
+  title: string;
+  text: string;
+}

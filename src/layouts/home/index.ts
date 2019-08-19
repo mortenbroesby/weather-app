@@ -11,6 +11,9 @@ import { Events } from "../../eventbus";
 import { $store } from "../../store";
 import { formatMessage } from "../../services/localisation.service";
 
+import { NotificationData } from "../../interfaces";
+import { MessageDialogType, MessageDialogDomain } from "../../enums";
+
 import NavigationMenu from "../../components/navigation-menu";
 import WeatherWidget from "../../components/weather-widget";
 
@@ -49,70 +52,78 @@ export default class Home extends mixins(StoreMixin) {
   /* METHODS */
   /*************************************************/
   updateLocation() {
-    $store.dispatch("setSpinner", true);
+    this.showSpinner();
 
     $store.dispatch("updateLocation").then((result) => {
-      setTimeout(() => {
-        $store.dispatch("setSpinner", false);
-      }, 660);
+      Logger.info("Update location - success: ", result);
 
-      Logger.info("Update location success: ", result);
-
-      Events.$emit("notify-me", {
-        status: "is-success",
-        data: {
-          title: formatMessage("notifications.location.success.title"),
-          text: formatMessage("notifications.location.success.description"),
-        }
+      this.sendNotification({
+        domain: MessageDialogDomain.LOCATION,
+        type: MessageDialogType.SUCCESS,
       });
+
+      this.hideSpinnerDelayed();
     }).catch((error) => {
-      setTimeout(() => {
-        $store.dispatch("setSpinner", false);
-      }, 660);
+      Logger.warn("Update location - error: ", error);
 
-      Logger.warn("Update location error: ", error);
-
-      Events.$emit("notify-me", {
-        status: "is-warning",
-        data: {
-          title: formatMessage("notifications.location.warning.title"),
-          text: formatMessage("notifications.location.warning.description"),
-        }
+      this.sendNotification({
+        domain: MessageDialogDomain.LOCATION,
+        type: MessageDialogType.WARNING,
       });
+
+      this.hideSpinnerDelayed();
     });
   }
 
   refreshWeather() {
-    $store.dispatch("setSpinner", true);
+    this.showSpinner();
 
     $store.dispatch("getCurrentWeather").then((result) => {
-      setTimeout(() => {
-        $store.dispatch("setSpinner", false);
-      }, 660);
+      Logger.info("Refresh Weather - success: ", result);
 
-      Logger.info("Refresh Weather success: ", result);
-
-      Events.$emit("notify-me", {
-        status: "is-success",
-        data: {
-          title: formatMessage("notifications.weather.success.title"),
-          text: formatMessage("notifications.weather.success.description"),
-        }
+      this.sendNotification({
+        domain: MessageDialogDomain.WEATHER,
+        type: MessageDialogType.SUCCESS,
       });
+
+      this.hideSpinnerDelayed();
     }).catch((error) => {
-      setTimeout(() => {
-        $store.dispatch("setSpinner", false);
-      }, 660);
+      Logger.warn("Refresh Weather - error: ", error);
 
-      Logger.warn("Refresh Weather error: ", error);
-
-      Events.$emit("notify-me", {
-        status: "is-warning",
-        data: {
-          title: formatMessage("notifications.weather.warning.title"),
-          text: formatMessage("notifications.weather.warning.description"),
-        }
+      this.sendNotification({
+        domain: MessageDialogDomain.WEATHER,
+        type: MessageDialogType.WARNING,
       });
+
+      this.hideSpinnerDelayed();
     });
+  }
+
+  /*************************************************/
+  /* UTILITY METHODS */
+  /*************************************************/
+  showSpinner() {
+    $store.dispatch("setSpinner", true);
+  }
+
+  hideSpinnerDelayed() {
+    setTimeout(() => {
+      $store.dispatch("setSpinner", false);
+    }, 660);
+  }
+
+  sendNotification({
+    domain = MessageDialogDomain.WEATHER,
+    type: messageType = MessageDialogType.SUCCESS,
+  }: { domain?: string; type?: MessageDialogType } = {}) {
+    const message = {
+      status: `is-${messageType}`,
+      data: {
+        title: formatMessage(`notifications.${domain}.${messageType}.title`),
+        text: formatMessage(`notifications.${domain}.${messageType}.description`),
+      }
+    };
+
+    Events.$emit("notify-me", message);
   }
 }

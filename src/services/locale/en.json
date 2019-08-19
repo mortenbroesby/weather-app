@@ -22,7 +22,7 @@
       },
       "warning": {
         "title": "Warning",
-        "description": "Within refresh limit."
+        "description": "Within location refresh limit."
       }
     },
     "weather": {
@@ -32,7 +32,7 @@
       },
       "warning": {
         "title": "Warning",
-        "description": "Within refresh limit."
+        "description": "Within weather refresh limit."
       }
     }
   }

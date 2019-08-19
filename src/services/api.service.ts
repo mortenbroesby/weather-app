@@ -20,6 +20,7 @@ const requestWeatherAPI: AxiosInstance = axios.create({
 // Docs:
 // - https://openweathermap.org/weather-data
 // - https://openweathermap.org/current
+
 function getWeatherRequest(options: Location) {
   const payload: string = "?" + queryString({
     APPID: config.apiDomains.openWeatherMap.apiKey,
