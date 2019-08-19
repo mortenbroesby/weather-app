@@ -1,9 +1,11 @@
 import { mixins } from "vue-class-component";
 import { Component, Prop, Watch } from "vue-property-decorator";
 
-import { Line } from "vue-chartjs";
+import { Line, mixins as chartMixins } from "vue-chartjs";
 
-@Component({})
+@Component({
+  mixins: [chartMixins.reactiveProp],
+})
 export default class Chart extends mixins(Line) {
   /*************************************************/
   /* EXTERNAL PROPERTIES */
