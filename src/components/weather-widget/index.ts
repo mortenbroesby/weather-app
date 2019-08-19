@@ -14,6 +14,18 @@ export default class WeatherWidget extends mixins(StoreMixin) {
   /*************************************************/
   /* COMPUTED'S */
   /*************************************************/
+  get translate() {
+    return {
+      mainTitle: this.$t("weatherWidget.mainTitle"),
+      firstSubtitle: this.$t("weatherWidget.firstSubtitle"),
+      secondSubtitle: this.$t("weatherWidget.secondSubtitle", { value: this.weatherType }),
+      precipitationTitle: this.$t("weatherWidget.precipitationTitle", { value: this.precipitation }),
+      windspeedTitle: this.$t("weatherWidget.windspeedTitle", { value: this.windSpeed }),
+      temperatureTitle: this.$t("weatherWidget.temperatureTitle", { value: this.temperature }),
+      humidityTitle: this.$t("weatherWidget.humidityTitle", { value: this.humidity }),
+    };
+  }
+
   get currentWeather() {
     return this.rootState.currentWeather;
   }

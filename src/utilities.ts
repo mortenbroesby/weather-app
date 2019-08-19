@@ -1,5 +1,6 @@
 import config from "./config";
 import Logger from "js-logger";
+import { formatMessage } from "./services/localisation.service";
 
 /**
  * [ Storage utility function ]
@@ -173,4 +174,10 @@ export function queryString(object: any) {
       return ks + encodeURIComponent(stringifyPrimitive(object[k]));
     }
   }).join(separator);
+}
+
+export function localised<T extends Object>(messages: T) {
+  Object.keys(messages).forEach(message => {
+    messages[message] = formatMessage(messages[message]);
+  });
 }

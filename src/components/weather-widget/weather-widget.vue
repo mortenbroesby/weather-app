@@ -2,16 +2,15 @@
   <div class="weather-widget">
     <div class="weather-widget__metadata">
       <h1 class="weather-widget__title">
-        {{ $t("weatherWidget.mainTitle") }}
+        {{ translate.mainTitle }}
       </h1>
 
       <p class="weather-widget__subtitle weather-widget__subtitle--bold">
-        {{ $t("weatherWidget.firstSubtitle") }}
+        {{ translate.firstSubtitle }}
       </p>
+
       <p class="weather-widget__subtitle">
-        {{ $t("weatherWidget.secondSubtitle",
-          { value: weatherType })
-        }}
+        {{ translate.secondSubtitle }}
       </p>
 
       <i class="weather-widget__icon wi"
@@ -20,31 +19,23 @@
 
       <p class="weather-widget__text">
         <i class="weather-widget__icon__small is-left wi wi-umbrella"></i>
-        {{ $t("weatherWidget.precipitationTitle",
-          { value: precipitation })
-        }}
+        {{ translate.precipitationTitle }}
       </p>
 
       <p class="weather-widget__text">
         <i class="weather-widget__icon__small is-left wi wi-strong-wind"></i>
-        {{ $t("weatherWidget.windspeedTitle",
-          { value: windSpeed })
-        }}
+        {{ translate.windspeedTitle }}
       </p>
 
       <p class="weather-widget__text">
         <i class="weather-widget__icon__small is-left wi wi-thermometer"></i>
-        {{ $t("weatherWidget.temperatureTitle",
-          { value: temperature })
-        }}
+        {{ translate.temperatureTitle }}
         <i class="weather-widget__icon__small weather-widget__icon__small--celsius wi wi-celsius"></i>
       </p>
 
       <p class="weather-widget__text">
         <i class="weather-widget__icon__small is-left wi wi-humidity"></i>
-        {{ $t("weatherWidget.humidityTitle",
-          { value: humidity })
-        }}
+        {{ translate.humidityTitle }}
       </p>
     </div>
   </div>
