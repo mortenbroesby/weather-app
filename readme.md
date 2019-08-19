@@ -5,6 +5,7 @@ This is a weather app. The intent is to make use of the OpenWeather API https://
 ## Goal:
 
 Search for a city or request the users location in the browser.
+
 Make a page that shows the daily and hourly chart of the weather forecast for this location.
 
 Create one chart to show all of the following:
@@ -44,4 +45,10 @@ See here for more information: [https://parceljs.org/getting_started.html](https
 ---
 
 ## Future considerations
--
+- Finish thefollowing requirement: "Make a page that shows the daily and hourly chart of the weather forecast for this location."
+- Add more pages and overlays. E.g. a settings page.
+- Ensure application is responsive and adaptive, e.g. for mobile devices or large screens.
+- Further atomise components where applicable.
+- Add end-to-end tests using Cypress.
+- Increase unit test code coverage. Add more unit tests.
+- Use Now.sh for interim deployment.
