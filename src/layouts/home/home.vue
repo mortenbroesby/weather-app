@@ -5,11 +5,17 @@
       @refreshWeather="refreshWeather">
     </navigation-menu>
 
-    <transition name="weatherFade" mode="in-out">
+    <transition-group name="weatherFade" mode="in-out">
       <weather-widget
         v-if="isVisible"
+        key="weather"
         @refreshWeather="refreshWeather">
       </weather-widget>
-    </transition>
+
+      <forecast-widget
+        v-if="isVisible"
+        key="forecast">
+      </forecast-widget>
+    </transition-group>
   </div>
 </template>

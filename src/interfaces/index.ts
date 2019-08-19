@@ -30,11 +30,6 @@ export interface Temperature {
   maximum: number;
 }
 
-export interface NotificationData {
-  title: string;
-  text: string;
-}
-
 export interface WeatherData {
   currentWeather: WeatherModel;
   forecastWeather: ForecastModel;

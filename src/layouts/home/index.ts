@@ -11,17 +11,18 @@ import { Events } from "../../eventbus";
 import { $store } from "../../store";
 import { formatMessage } from "../../services/localisation.service";
 
-import { NotificationData } from "../../interfaces";
 import { MessageDialogType, MessageDialogDomain } from "../../enums";
 
 import NavigationMenu from "../../components/navigation-menu";
 import WeatherWidget from "../../components/weather-widget";
+import ForecastWidget from "../../components/forecast-widget";
 
 @Component({
   mixins: [template],
   components: {
     NavigationMenu,
     WeatherWidget,
+    ForecastWidget,
   }
 })
 export default class Home extends mixins(StoreMixin) {

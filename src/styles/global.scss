@@ -134,6 +134,12 @@ body {
   color: color('black');
   background-color: color('background');
   @include z-index(root);
+
+  background: radial-gradient(
+    circle farthest-side, #5e88fc, #1e5799
+  );
+
+  background-attachment: fixed;
 }
 
 html {
