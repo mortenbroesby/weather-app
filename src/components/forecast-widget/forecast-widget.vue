@@ -1,9 +1,7 @@
 <template>
   <div class="forecast-widget">
     <line-chart
-      v-if="hasLoaded"
-      :chartData="chartData"
-      :chartOptions="chartOptions">
+      v-if="hasLoaded">
     </line-chart>
   </div>
 </template>

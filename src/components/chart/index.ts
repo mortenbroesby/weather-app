@@ -1,31 +1,93 @@
+import Logger from "js-logger";
 import { mixins } from "vue-class-component";
-import { Component, Prop, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 import { Line, mixins as chartMixins } from "vue-chartjs";
+import StoreMixin from "../../mixins/store.mixin";
+import { WeatherModel } from "../../models/weather.model";
 
 @Component({
-  mixins: [chartMixins.reactiveProp],
+  mixins: [chartMixins.reactiveData],
 })
-export default class Chart extends mixins(Line) {
+export default class Chart extends mixins(StoreMixin, Line) {
   /*************************************************/
-  /* EXTERNAL PROPERTIES */
+  /* PROPERTIES */
   /*************************************************/
-  @Prop({ default: {} })
-  chartData: Object;
+  chartData: Object | undefined = {};
 
-  @Prop({ default: {} })
-  chartOptions: Object;
+  options: Object = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+
+  /*************************************************/
+  /* COMPUTED'S */
+  /*************************************************/
+  get forecast() {
+    return this.rootState.forecastWeather;
+  }
+
+  get forecastItems() {
+    return this.forecast.items;
+  }
 
   /*************************************************/
   /* WATCHERS */
   /*************************************************/
-  @Watch("chartdata", { immediate: true })
-  onChartUpdate() {
-    this.renderChart(this.chartData, this.chartOptions);
+  mounted() {
+    this.updateData();
   }
 
-  @Watch("options", { immediate: true })
-  onOptionsUpdate() {
-    this.renderChart(this.chartData, this.chartOptions);
+  updateData() {
+    let chartData = {
+      labels: ["Now", "Tonight"],
+      datasets: [
+        {
+          label: "Precipitation",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          pointBackgroundColor: "white",
+          borderWidth: 1,
+          pointBorderColor: "#249EBF",
+          data: []
+        },
+        {
+          label: "Humidity",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          pointBackgroundColor: "white",
+          borderWidth: 1,
+          pointBorderColor: "#249EBF",
+          data: []
+        },
+        {
+          label: "Wind speed",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          pointBackgroundColor: "white",
+          borderWidth: 1,
+          pointBorderColor: "#249EBF",
+          data: []
+        },
+        {
+          label: "Temperature",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          pointBackgroundColor: "white",
+          borderWidth: 1,
+          pointBorderColor: "#249EBF",
+          data: []
+        },
+      ]
+    };
+
+    if (this.forecastItems && this.forecastItems.length > 0) {
+      this.forecastItems.forEach((item: WeatherModel) => {
+        chartData.datasets[0].data.push(item.precipitation as never);
+        chartData.datasets[1].data.push(item.humidity as never);
+        chartData.datasets[2].data.push(item.windSpeed as never);
+        chartData.datasets[3].data.push(item.temperature as never);
+      });
+
+      this.chartData = chartData;
+    }
+
+    this.renderChart(this.chartData, this.options);
   }
 }

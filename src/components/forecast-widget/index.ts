@@ -1,3 +1,4 @@
+import Logger from "js-logger";
 import { mixins } from "vue-class-component";
 import { Component, Watch } from "vue-property-decorator";
 
@@ -22,11 +23,6 @@ export default class ForecastWidget extends mixins(StoreMixin) {
   /*************************************************/
   hasLoaded = false;
 
-  chartData: WeatherModel[] = [];
-  chartOptions = {
-    responsive: true
-  };
-
   /*************************************************/
   /* COMPUTED'S */
   /*************************************************/
@@ -43,7 +39,6 @@ export default class ForecastWidget extends mixins(StoreMixin) {
   /*************************************************/
   @Watch("forecastItems", { immediate: true })
   onChartUpdate() {
-    this.chartData = this.forecastItems;
     this.hasLoaded = true;
   }
 }
