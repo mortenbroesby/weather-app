@@ -30,7 +30,13 @@
   &:active {
     padding: 1em 1.3em;
     padding-right: 1.1em;
-    transform: scale(1.16);
+
+    .navigation-menu__icon {
+      transition: all 330ms;
+
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.8em;
+    }
   }
 
   &:active {
@@ -42,15 +48,16 @@
 
 .navigation-menu__icon {
   font-size: 1.5em;
+  transition: all 330ms;
 
   &--update {
     margin-right: 10px;
-    color: rgba(255, 255, 255, 0.8);
+    color: black;
   }
 
   &--refresh {
     margin-left: 10px;
-    color: rgba(255, 255, 255, 0.8);
+    color: black;
   }
 }
 
