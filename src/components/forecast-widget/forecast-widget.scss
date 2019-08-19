@@ -2,10 +2,27 @@
 
 .forecast-widget {
   width: 100%;
-  height: 100%;
   @include z-index(root);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  margin-bottom: 200px;
+}
+
+.forecast-widget__chartContainer {
+  width: 100%;
+  height: auto;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
+
+@media (min-width: 600px) {
+  .forecast-widget__chartContainer {
+    width: 800px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 50px;
+    border-radius: 22px;
+  }
 }

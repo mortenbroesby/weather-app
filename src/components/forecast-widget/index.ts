@@ -7,8 +7,6 @@ import "./forecast-widget.scss";
 
 import StoreMixin from "../../mixins/store.mixin";
 
-import { WeatherModel } from "../../models/weather.model";
-
 import LineChart from "../chart";
 
 @Component({
@@ -21,7 +19,7 @@ export default class ForecastWidget extends mixins(StoreMixin) {
   /*************************************************/
   /* PROPERTIES */
   /*************************************************/
-  hasLoaded = false;
+  isVisible = false;
 
   /*************************************************/
   /* COMPUTED'S */
@@ -39,6 +37,6 @@ export default class ForecastWidget extends mixins(StoreMixin) {
   /*************************************************/
   @Watch("forecastItems", { immediate: true })
   onChartUpdate() {
-    this.hasLoaded = true;
+    this.isVisible = true;
   }
 }
