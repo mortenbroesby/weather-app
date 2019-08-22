@@ -45,10 +45,11 @@ See here for more information: [https://parceljs.org/getting_started.html](https
 ---
 
 ## Future considerations
-- Finish thefollowing requirement: "Make a page that shows the daily and hourly chart of the weather forecast for this location."
-- Add more pages and overlays. E.g. a settings page.
+- Finish the following requirement: "Make a page that shows the daily and hourly chart of the weather forecast for this location."
+- Add more pages and overlays. E.g. a settings page with personal preferences.
 - Ensure application is responsive and adaptive, e.g. for mobile devices or large screens.
 - Further atomise components where applicable.
+- Setup namespaced sub-modules per domain in VueX store.
 - Add end-to-end tests using Cypress.
 - Increase unit test code coverage. Add more unit tests.
 - Use Now.sh for interim deployment.
