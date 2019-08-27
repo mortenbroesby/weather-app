@@ -6,10 +6,13 @@ const envConfig = environment === "production"
   ? productionConfig
   : developmentConfig;
 
+const debugEnabled = environment !== "production";
+
 export interface ConfigInterface {
   api: {
     requestTimeout: number;
   };
+  debug: boolean;
   defaultLanguage: string;
   languages: {
     [lang in Langs]: {
@@ -27,6 +30,7 @@ let config: ConfigInterface = {
   api: {
     requestTimeout: 30000
   },
+  debug: debugEnabled,
   defaultLanguage: "en",
   languages: {
     "en": {

@@ -35,6 +35,9 @@ import Home from "./layouts/home";
 // Import styles
 import "./App.scss";
 
+// Ensure watchers are all used
+import "./mixins/watcher.mixin";
+
 // Call localisation service init before Vue is loaded
 localisationService.initBeforeApplicationLoad();
 
