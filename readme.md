@@ -2,7 +2,7 @@
 
 This is a weather app. The intent is to make use of the OpenWeather API https://openweathermap.org/
 
-## Goal:
+## Goal set for myself:
 
 Search for a city or request the users location in the browser.
 
@@ -45,7 +45,6 @@ See here for more information: [https://parceljs.org/getting_started.html](https
 ---
 
 ## Future considerations
-- Finish the following requirement: "Make a page that shows the daily and hourly chart of the weather forecast for this location."
 - Add more pages and overlays. E.g. a settings page with personal preferences.
 - Ensure application is responsive and adaptive, e.g. for mobile devices or large screens.
 - Further atomise components where applicable.
